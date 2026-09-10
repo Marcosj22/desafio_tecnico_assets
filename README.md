@@ -165,4 +165,6 @@ desafio_tecnico_assets/
 1. Durante a montagem do Dockerfile e docker-compose.yml precisei revisitar alguns estudos sobre docker, para melhor configurar o container, tanto para o Spark conversar com o Postgres quanto para exportar o arquivo final.
 
 2. Criei um schema chamad db_cartoes para criarmos as nossas tabelas com o script create_tables.sql
-
+2.1 Tive que ajustar algumas configurações no docker-compose.yml, pois os drivers do worker não estavam seguindo o mesmo padrão que o do master. \
+2.2 Com o comando 'docker compose up --build' conseguimos subir o postgres corretamente e aplicar o scrip DDL, com o comando \dt db_cartoes.* conseguimos ver a criação das 4 tabelas, conforme print a baixo: \
+![Tabelas criadas no PostgreSQL](docs/images/banco_postgres_up.png)
