@@ -91,7 +91,7 @@ Por se tratar de uma POC, irei abstrair a criação de gerenciadores de dependen
 
 2. Usaramoes o Spark de forma local dentro do container, através do PySpark. Por se tratar de uma POC, não precisamos nos preocupar no momento com o gerenciamento e configuração de clusters.
 
-3. Para popular os dados nas nossas tabelas no banco postgree usaremos o proprio Spark via JDBC para ingerir os dados para teste. Os dados ficticios serão gerados através de IA e disponibilizados no repositorio para melhor replicação.
+3. Para ingerir os dados nas nossas tabelas no banco postgres usaremos o biblioteca psycopg para fazer um COPY INTO, usaremos o Spark via JDBC para exportar a tabela flat no formato CSV. Os dados ficticios serão gerados através de IA e disponibilizados no repositorio para melhor replicação.
 
 4. Por se tratar de uma POC, colocaremos infomrações de infraestrutura diretamente no docker compose, sem precisar de um arquivo .env 
 
