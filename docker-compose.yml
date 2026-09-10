@@ -57,6 +57,10 @@ services:
 
 
   spark-worker:
+    build:
+      context: .
+      dockerfile: docker/spark/Dockerfile
+
     image: sicooperative-spark:3.5.9
     container_name: sicooperative-spark-worker
 
@@ -74,7 +78,7 @@ services:
       SPARK_WORKER_MEMORY: 2g
 
     volumes:
-      - ./output:/opt/spark/work-dir/output ##aqui é onde o worker vai escrever os arquivos de saída do processamento 
+      - ./output:/opt/spark/work-dir/output ##aqui é onde o worker vai escrever os arquivos de saída do processamento
 
     networks:
       - sicooperative-network
