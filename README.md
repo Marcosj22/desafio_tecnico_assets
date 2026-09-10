@@ -151,3 +151,6 @@ desafio_tecnico_assets/
 3.Na hora de testar o Spark acabei não adicionando o path do caminho com os arquivos em CSV, precisei configurar o yml do Docker e adicionar os caminho na seção volumes, tanto do master quanto do worker do spark. Após testar novamente conseguimos testar o spark e verificar se aplicação estava ON no localhost: \
 ![Bash com Spark](docs/images/bash_spark_running.png)
 ![Aplicacao Rodando no Spark](docs/images/spark_aplication_running.png)
+
+4. Para ingerir os arquivos CSV no postgres foi uma etapa tranquila, utilizamos o copy into nativo do banco para subir os arquivos. A montagem do arquivo seed_data.py foi um pouco complexo para adicionar os comandos do CLI, mas utilizei uma lib nativa chamada argparse. 
+
