@@ -95,7 +95,7 @@ Por se tratar de uma POC, irei abistrair a criação de gerenciadores de depende
 
 ## Decisões de Arquitetura
 
-1. Banco de Dados Postgree e Spark serão provisioandos usando Docker, em imagens separadas. Para comunicação entre os dois usei uma conexão JDBC, dessa forma conseguimos separar o que é armazenamento e o que é processamento.
+1. Banco de Dados Postgres e Spark serão provisioandos usando Docker, em imagens separadas. Para comunicação entre os dois usei uma conexão JDBC, dessa forma conseguimos separar o que é armazenamento e o que é processamento.
 
 ```text
 ┌──────────────────── Docker Environment ───────────────────┐
@@ -159,3 +159,8 @@ desafio_tecnico_assets/
 ├── .gitignore
 └── README.md
 ```
+
+## Anotações durante o desenvolvimento 
+
+1. Durante a montagem do Dockerfile e docker-compose.yml precisei revisitar alguns estudos sobre docker, para melhor configurar o container, tanto para o Spark conversar com o Postgres quanto para exportar o arquivo final.
+

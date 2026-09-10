@@ -1,0 +1,89 @@
+services:
+  postgres:
+    image: postgres:17.11
+    container_name: sicooperative-postgres
+
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-sicooperative}
+      POSTGRES_USER: ${POSTGRES_USER:-sicooperative}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sicooperative}
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./sql/ddl/create_tables.sql:/docker-entrypoint-initdb.d/001-create_tables.sql:ro
+
+    healthcheck: ## checa se o postgres está de pé, caso não esteja, o docker-compose vai tentar reiniciar o container
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-sicooperative} -d ${POSTGRES_DB:-sicooperative}"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - sicooperative-network
+
+
+  spark-master:
+    build:
+      context: .
+      dockerfile: docker/spark/Dockerfile
+
+    image: sicooperative-spark:3.5.9
+    container_name: sicooperative-spark-master
+
+    command:
+      - /opt/spark/bin/spark-class
+      - org.apache.spark.deploy.master.Master
+
+    environment:
+      SPARK_NO_DAEMONIZE: "true"
+
+    ports:
+      - "7077:7077"
+      - "8080:8080"
+
+    volumes:
+      - ./src:/opt/spark/work-dir/src:ro
+      - ./output:/opt/spark/work-dir/output
+
+    networks:
+      - sicooperative-network
+
+
+  spark-worker:
+    image: sicooperative-spark:3.5.9
+    container_name: sicooperative-spark-worker
+
+    depends_on:
+      - spark-master
+
+    command:
+      - /opt/spark/bin/spark-class
+      - org.apache.spark.deploy.worker.Worker
+      - spark://spark-master:7077
+
+    environment:
+      SPARK_NO_DAEMONIZE: "true"
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 2g
+
+    volumes:
+      - ./output:/opt/spark/work-dir/output ##aqui é onde o worker vai escrever os arquivos de saída do processamento 
+
+    networks:
+      - sicooperative-network
+
+
+volumes:
+  postgres_data:
+
+
+networks:
+  sicooperative-network:
+    driver: bridge
