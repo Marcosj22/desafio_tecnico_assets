@@ -164,3 +164,5 @@ desafio_tecnico_assets/
 
 1. Durante a montagem do Dockerfile e docker-compose.yml precisei revisitar alguns estudos sobre docker, para melhor configurar o container, tanto para o Spark conversar com o Postgres quanto para exportar o arquivo final.
 
+2. Criei um schema chamad db_cartoes para criarmos as nossas tabelas com o script create_tables.sql
+
