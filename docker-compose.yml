@@ -13,7 +13,7 @@ services:
 
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./sql/ddl/create_tables.sql:/docker-entrypoint-initdb.d/001-create_tables.sql:ro
+      - ./sql/ddl/create_tables.sql:/docker-entrypoint-initdb.d/001-create_tables.sql:ro ## esse arquivo será executado na primeira vez que o container for iniciado, criando as tabelas no banco de dados
 
     healthcheck: ## checa se o postgres está de pé, caso não esteja, o docker-compose vai tentar reiniciar o container
       test:
