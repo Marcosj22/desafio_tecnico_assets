@@ -36,12 +36,12 @@ Cada ferramenta da stack foi definida com uma responsabilidade específica, conf
 
 O objetivo foi construir uma arquitetura **reprodutível, simples, testável, organizada e preparada para escalabilidade**.
 
-Por se tratar de uma POC, irei abistrair a criação de gerenciadores de dependencias e versões de python, como o (**Pyenv**) para controle de versão e (**Poetry**) para gerenciamento de dependências.
+Por se tratar de uma POC, irei abstrair a criação de gerenciadores de dependencias e versões de python, como o (**Pyenv**) para controle de versão e (**Poetry**) para gerenciamento de dependências.
 
 ---
 
 
-## 🏗️ Desenho de Pipeline e Arquitetura
+## 🏗️ Desenho de Pipeline 
 
 ```text
                          ETL PIPELINE
@@ -68,29 +68,6 @@ Por se tratar de uma POC, irei abistrair a criação de gerenciadores de depende
 │     Storage      │
 └──────────────────┘
 
-
-             DEVELOPMENT ENVIRONMENT
-
-┌─────────────────────────────────────────┐
-│                  Docker                 │
-│                                         │
-│  ┌────────────────┐ ┌────────────────┐  │
-│  │   PostgreSQL   │ │     Spark      │  │
-│  │                │ │                │  │
-│  │ Source DB      │ │ Spark Runtime  │  │
-│  └────────────────┘ └────────────────┘  │
-│                                         │
-└─────────────────────────────────────────┘
-                    ▲
-                    │
-              PySpark / Python
-                    │
-┌─────────────────────────────────────────┐
-│                Python                   │
-│                                         │
-│  PySpark → Data processing              │
-│  Pytest → Automated tests               │
-└─────────────────────────────────────────┘
 ```
 
 ## Decisões de Arquitetura
@@ -167,4 +144,6 @@ desafio_tecnico_assets/
 2. Criei um schema chamad db_cartoes para criarmos as nossas tabelas com o script create_tables.sql
 2.1 Tive que ajustar algumas configurações no docker-compose.yml, pois os drivers do worker não estavam seguindo o mesmo padrão que o do master. \
 2.2 Com o comando 'docker compose up --build' conseguimos subir o postgres corretamente e aplicar o scrip DDL, com o comando \dt db_cartoes.* conseguimos ver a criação das 4 tabelas, conforme print a baixo: \
-![Tabelas criadas no PostgreSQL](docs/images/banco_postgres_up.png)
+![Tabelas criadas no PostgreSQL](docs/images/banco_postgres_up.png) \
+2.3 Também verifiquei se o Spark subiu corretamente e se o Worker e o Master estão conectados corretamente, O worker esta como Alive, comprovando que tudo ocorreu corretamente: 
+![Tabelas criadas no PostgreSQL](docs/images/spark_up.png)
