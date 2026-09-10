@@ -146,4 +146,8 @@ desafio_tecnico_assets/
 2.2 Com o comando 'docker compose up --build' conseguimos subir o postgres corretamente e aplicar o scrip DDL, com o comando \dt db_cartoes.* conseguimos ver a criação das 4 tabelas, conforme print a baixo: \
 ![Tabelas criadas no PostgreSQL](docs/images/banco_postgres_up.png) \
 2.3 Também verifiquei se o Spark subiu corretamente e se o Worker e o Master estão conectados corretamente, O worker esta como Alive, comprovando que tudo ocorreu corretamente: 
-![Tabelas criadas no PostgreSQL](docs/images/spark_up.png)
+![Spark Up](docs/images/spark_up.png)
+
+3.Na hora de testar o Spark acabei não adicionando o path do caminho com os arquivos em CSV, precisei configurar o yml do Docker e adicionar os caminho na seção volumes, tanto do master quanto do worker do spark. Após testar novamente conseguimos testar o spark e verificar se aplicação estava ON no localhost: \
+![Bash com Spark](docs/images/bash_spark_running.png)
+![Aplicacao Rodando no Spark](docs/images/spark_aplication_running.png)
