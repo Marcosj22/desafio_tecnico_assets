@@ -19,10 +19,10 @@ CREATE TABLE IF NOT EXISTS db_cartoes.conta (
     tipo            VARCHAR NOT NULL, -- No diagrama esta como tipo_conta, por falta de definição coloquei como varchar
     data_criacao    TIMESTAMP NOT NULL,
     id_associado    INTEGER NOT NULL,
-
+    
     CONSTRAINT fk_conta_associado
         FOREIGN KEY (id_associado)
-        REFERENCES associado (id)
+        REFERENCES db_cartoes.associado (id)
 );
 
 --tbl de cartao
