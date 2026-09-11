@@ -148,9 +148,16 @@ desafio_tecnico_assets/
 2.3 Também verifiquei se o Spark subiu corretamente e se o Worker e o Master estão conectados corretamente, O worker esta como Alive, comprovando que tudo ocorreu corretamente: 
 ![Spark Up](docs/images/spark_up.png)
 
-3.Na hora de testar o Spark acabei não adicionando o path do caminho com os arquivos em CSV, precisei configurar o yml do Docker e adicionar os caminho na seção volumes, tanto do master quanto do worker do spark. Após testar novamente conseguimos testar o spark e verificar se aplicação estava ON no localhost: \
+3. Na hora de testar o Spark acabei não adicionando o path do caminho com os arquivos em CSV, precisei configurar o yml do Docker e adicionar os caminho na seção volumes, tanto do master quanto do worker do spark. Após testar novamente conseguimos testar o spark e verificar se aplicação estava ON no localhost: \
 ![Bash com Spark](docs/images/bash_spark_running.png)
 ![Aplicacao Rodando no Spark](docs/images/spark_aplication_running.png)
 
-4. Para ingerir os arquivos CSV no postgres foi uma etapa tranquila, utilizamos o copy into nativo do banco para subir os arquivos. A montagem do arquivo seed_data.py foi um pouco complexo para adicionar os comandos do CLI, mas utilizei uma lib nativa chamada argparse. 
+4. Para ingerir os arquivos CSV no postgres foi uma etapa tranquila, utilizamos o copy into nativo do banco para subir os arquivos. A montagem do arquivo seed_data.py foi um pouco complexo para adicionar os comandos do CLI, mas utilizei uma lib nativa chamada argparse. \
+4.1 Na criação do seed_data.py montei uma logica para que caso alguma ingestão falhe, todas falhem, para evitar erros. Além disso ele segue o padrão do DLL e suas FKs: associado → conta → cartao → movimento, caso nn siga essa ordem o banco retornaria erro pois não terias as cheves necessarias. \
+4.2 Apos executar o comando python src/seed/seed_data.py --reset podemos ver os dados ja dentro da tabela, também fizemos uma consulta para verificar se as chaves estavam sendo respeitadas: \
+![Postgres com dados](docs/images/banco_com_dados.png)
+
+5. Para construirmos a pipeline da criação da tabela movimento_flat, primeiro testei a conexão do Spark com o Postgres, através do comando spark.read.jdbc(), que deu certo para a tabela associado: 
+![Spark x Postgres](docs/images/conexao_spark_postgres.png) \
+5.1 
 
