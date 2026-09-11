@@ -159,5 +159,6 @@ desafio_tecnico_assets/
 
 5. Para construirmos a pipeline da criação da tabela movimento_flat, primeiro testei a conexão do Spark com o Postgres, através do comando spark.read.jdbc(), que deu certo para a tabela associado: 
 ![Spark x Postgres](docs/images/conexao_spark_postgres.png) \
-5.1 
+5.1 Durante a montagem da query da tabela movimento_flat, percebi que uma das colunas "data_criacao_cartao" não esta em nenhuma das tabelas inicias. Para não ter que criar um campo nulo e "martelar" essa coluna, optei por não traze-la. Também não utilizei a data de criação de conta como a data de criação do cartão, pois podemos ter associados que não possuem cartão de crédito.
+
 
