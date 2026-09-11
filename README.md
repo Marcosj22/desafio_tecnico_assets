@@ -15,6 +15,7 @@ Para melhor organizar o desafio, o problema foi dividido em quatro etapas:
 3. Ingestão de dados fictícios
 4. ETL para criação da tabela Flat
 5. Exportação parametrizável de arquivo CSV em diretório local
+6. Criação dos testes unitários
 
 
 ## Proposta de Solução | Stack
@@ -159,7 +160,7 @@ desafio_tecnico_assets/
 
 5. Para construirmos a pipeline da criação da tabela movimento_flat, primeiro testei a conexão do Spark com o Postgres, através do comando spark.read.jdbc(), que deu certo para a tabela associado: 
 ![Spark x Postgres](docs/images/conexao_spark_postgres.png) \
-5.1 Durante a montagem da query da tabela movimento_flat, percebi que uma das colunas "data_criacao_cartao" não esta em nenhuma das tabelas inicias. Para não ter que criar um campo nulo e "martelar" essa coluna, optei por não traze-la. Também não utilizei a data de criação de conta como a data de criação do cartão, pois podemos ter associados que não possuem cartão de crédito.
-5.2 Para que o destino do CSV ser parametrizavel, nós precisamos alterar o volumes do conteiner, pois o spark só terá acesso aos direotorios que disponibilizarmos para ele. Nesta POC eu disponibilizei a pasta output para que possamos salvr o arquivo, com o comando --output-dir  nós podemos salvar em qualquer pasta criada dentro desse caminho, como por exemplo: /opt/spark/work-dir/output/teste_novo_caminho, basta descrever esse caminho na hora de executar o codigo main.py dentro do Spark.
-
+5.1 Durante a montagem da query da tabela movimento_flat, percebi que uma das colunas "data_criacao_cartao" não esta em nenhuma das tabelas inicias. Para não ter que criar um campo nulo e "martelar" essa coluna, optei por não traze-la. Também não utilizei a data de criação de conta como a data de criação do cartão, pois podemos ter associados que não possuem cartão de crédito. \
+5.2 Para que o destino do CSV ser parametrizavel, nós precisamos alterar o volumes do conteiner, pois o spark só terá acesso aos direotorios que disponibilizarmos para ele. Nesta POC eu disponibilizei a pasta output para que possamos salvr o arquivo, com o comando --output-dir  nós podemos salvar em qualquer pasta criada dentro desse caminho, como por exemplo: /opt/spark/work-dir/output/teste_novo_caminho, basta descrever esse caminho na hora de executar o codigo main.py dentro do Spark. O resultado final deixei salvo o exemple_movimento_flat.csv, quando o codigo for executado será salvo como movimento_flat.csv
+6. O teste unitário foi pensado para cobrir 3 pontos: Os dataframes precisam ser relacionaveis, resultado contém as colunas esperadas e os valores do registro final vieram corretamente das tabelas de origem.
 

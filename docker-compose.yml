@@ -50,6 +50,7 @@ services:
 
     volumes:
       - ./src:/opt/spark/work-dir/src:ro
+      - ./tests:/opt/spark/work-dir/tests:ro
       - ./output:/opt/spark/work-dir/output
       - ./data:/opt/spark/work-dir/data:ro
 
