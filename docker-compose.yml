@@ -50,7 +50,9 @@ services:
 
     volumes:
       - ./src:/opt/spark/work-dir/src:ro
+      - ./tests:/opt/spark/work-dir/tests:ro
       - ./output:/opt/spark/work-dir/output
+      - ./data:/opt/spark/work-dir/data:ro
 
     networks:
       - sicooperative-network
@@ -79,6 +81,7 @@ services:
 
     volumes:
       - ./output:/opt/spark/work-dir/output ##aqui é onde o worker vai escrever os arquivos de saída do processamento
+      - ./data:/opt/spark/work-dir/data:ro
 
     networks:
       - sicooperative-network
